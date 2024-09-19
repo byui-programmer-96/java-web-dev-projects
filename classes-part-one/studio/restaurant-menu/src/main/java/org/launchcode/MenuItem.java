@@ -1,5 +1,6 @@
 package org.launchcode;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MenuItem {
@@ -8,14 +9,14 @@ public class MenuItem {
     private String description;
     private double price;
     private String category;
-    private final LocalDateTime datetimeAdded;
+    private final LocalDate dateAdded;
 
     public MenuItem(String name, String description, double price, String category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
-        this.datetimeAdded = LocalDateTime.now();
+        this.dateAdded = LocalDate.now();
 
 
     }
@@ -52,9 +53,24 @@ public class MenuItem {
         this.category = category;
     }
 
-    public LocalDateTime getDatetimeAdded() {
-        return datetimeAdded;
+    public LocalDateTime getDateAdded() {
+        return dateAdded;
     }
+}
+@Override
+public String toString(){
+    String newText = isNew() ? " - New!" : "";
+    return name + newText + "\n" + description + " | $" + price;
+
+};
+
+
+
+
+boolean isNew() {
+    LocalDate today = LocalDate.now();
+    double dayBetween = getDataAdded().until(today,ChronoUnit.Days);
+    return daysBetween < 90;
 }
 
 
